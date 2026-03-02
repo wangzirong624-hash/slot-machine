@@ -371,21 +371,27 @@
             
             const results = [getRandomSymbol(), getRandomSymbol(), getRandomSymbol()];
             
-            reel1.innerHTML = createReelStrip() + `<div class="symbol">${results[0]}</div>`;
-            reel2.innerHTML = createReelStrip() + `<div class="symbol">${results[1]}</div>`;
-            reel3.innerHTML = createReelStrip() + `<div class="symbol">${results[2]}</div>`;
+            const duration1 = 1500 + Math.random() * 500;
+            const duration2 = 2000 + Math.random() * 500;
+            const duration3 = 2500 + Math.random() * 500;
             
-            const duration1 = 2000 + Math.random() * 500;
-            const duration2 = 2500 + Math.random() * 500;
-            const duration3 = 3000 + Math.random() * 500;
-            
-            animateReel(reel1, duration1, results[0]);
+            // 开始滚动动画
+            const stop1 = animateReel(reel1, duration1);
             await new Promise(r => setTimeout(r, 200));
-            animateReel(reel2, duration2, results[1]);
+            const stop2 = animateReel(reel2, duration2);
             await new Promise(r => setTimeout(r, 200));
-            animateReel(reel3, duration3, results[2]);
+            const stop3 = animateReel(reel3, duration3);
             
-            await new Promise(r => setTimeout(r, duration3 + 500));
+            // 等待所有停止
+            await new Promise(r => setTimeout(r, duration3 + 300));
+            
+            // 显示最终结果
+            reel1.innerHTML = `<div class="symbol">${results[0]}</div>`;
+            reel1.style.transform = 'translateY(0)';
+            reel2.innerHTML = `<div class="symbol">${results[1]}</div>`;
+            reel2.style.transform = 'translateY(0)';
+            reel3.innerHTML = `<div class="symbol">${results[2]}</div>`;
+            reel3.style.transform = 'translateY(0)';
             
             checkWin(results);
             
@@ -404,22 +410,29 @@
             }
         }
         
-        function animateReel(reel, duration, finalSymbol) {
+        function animateReel(reel, duration) {
+            // 创建滚动条带
+            let stripHTML = '';
+            for (let i = 0; i < 15; i++) {
+                stripHTML += `<div class="symbol">${getRandomSymbol()}</div>`;
+            }
+            reel.innerHTML = stripHTML;
+            
             const startTime = Date.now();
-            const stripHeight = reel.scrollHeight - 100;
+            const symbolHeight = 100;
+            const totalHeight = reel.scrollHeight - symbolHeight;
             
             function animate() {
                 const elapsed = Date.now() - startTime;
                 const progress = Math.min(elapsed / duration, 1);
+                // 缓动：开始快，最后慢
                 const easeOut = 1 - Math.pow(1 - progress, 3);
-                const position = stripHeight * easeOut;
+                const position = totalHeight * easeOut;
                 
                 reel.style.transform = `translateY(-${position}px)`;
                 
                 if (progress < 1) {
                     requestAnimationFrame(animate);
-                } else {
-                    reel.style.transform = `translateY(-${stripHeight}px)`;
                 }
             }
             
