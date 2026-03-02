@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎰 王老师老虎机</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Arial', sans-serif;
             background-image: url('casino-bg.jpg');
@@ -23,31 +18,23 @@
             align-items: center;
             padding: 20px;
         }
-        
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0,0,0,0.4);
             z-index: -1;
         }
-        
         .machine {
             background: linear-gradient(145deg, rgba(139,0,0,0.95) 0%, rgba(220,20,60,0.95) 50%, rgba(139,0,0,0.95) 100%);
             border-radius: 30px;
             padding: 40px;
-            box-shadow: 
-                0 20px 60px rgba(0,0,0,0.8),
-                0 0 100px rgba(255,215,0,0.3);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 100px rgba(255,215,0,0.3);
             max-width: 500px;
             width: 100%;
             text-align: center;
             border: 3px solid #FFD700;
         }
-        
         .title {
             color: #FFD700;
             font-size: 2.5em;
@@ -55,23 +42,18 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
             animation: glow 2s ease-in-out infinite;
         }
-        
         @keyframes glow {
             0%, 100% { text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 30px #FFD700; }
             50% { text-shadow: 0 0 20px #FFD700, 0 0 40px #FFD700, 0 0 60px #FFD700; }
         }
-        
         .display {
             background: linear-gradient(145deg, #1a1a1a 0%, #0d0d0d 100%);
             border-radius: 15px;
             padding: 20px;
             margin-bottom: 30px;
             border: 4px solid #FFD700;
-            box-shadow: 
-                inset 0 0 30px rgba(0,0,0,0.8),
-                0 0 20px rgba(255,215,0,0.2);
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.8), 0 0 20px rgba(255,215,0,0.2);
         }
-        
         .reels-container {
             display: flex;
             justify-content: center;
@@ -83,7 +65,6 @@
             border: 3px solid #444;
             box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
         }
-        
         .reel-window {
             width: 100px;
             height: 100px;
@@ -92,29 +73,27 @@
             border: 3px solid #FFD700;
             overflow: hidden;
             position: relative;
-            box-shadow: 
-                0 5px 15px rgba(0,0,0,0.3),
-                inset 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3), inset 0 0 10px rgba(0,0,0,0.1);
         }
-        
-        .reel-strip {
-            position: absolute;
+        .reel-content {
             width: 100%;
-            transition: transform 0.1s linear;
-        }
-        
-        .symbol {
-            width: 100px;
-            height: 100px;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 3em;
             background: linear-gradient(145deg, #fff 0%, #f0f0f0 100%);
-            border-bottom: 2px solid #ddd;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.1s linear;
         }
-        
+        .reel-content.spinning {
+            animation: blur-spin 0.1s linear infinite;
+        }
+        @keyframes blur-spin {
+            0% { filter: blur(0px); transform: scale(1); }
+            50% { filter: blur(2px); transform: scale(0.95); }
+            100% { filter: blur(0px); transform: scale(1); }
+        }
         .info {
             display: flex;
             justify-content: space-between;
@@ -123,20 +102,17 @@
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
-        
         .controls {
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
-        
         .bet-controls {
             display: flex;
             justify-content: center;
             gap: 10px;
             flex-wrap: wrap;
         }
-        
         .btn {
             padding: 12px 25px;
             font-size: 1.1em;
@@ -148,23 +124,19 @@
             text-transform: uppercase;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
-        
         .btn-bet {
             background: linear-gradient(145deg, #4CAF50, #45a049);
             color: white;
         }
-        
         .btn-bet:hover {
             transform: scale(1.05) translateY(-2px);
             box-shadow: 0 6px 20px rgba(76,175,80,0.4);
         }
-        
         .btn-bet.active {
             background: linear-gradient(145deg, #FFD700, #FFA500);
             color: #000;
             box-shadow: 0 0 20px rgba(255,215,0,0.5);
         }
-        
         .btn-spin {
             background: linear-gradient(145deg, #FF6B6B, #EE5A6F);
             color: white;
@@ -173,19 +145,16 @@
             border: 2px solid #FFD700;
             box-shadow: 0 0 30px rgba(255,107,107,0.5);
         }
-        
         .btn-spin:hover {
             transform: scale(1.05) translateY(-3px);
             box-shadow: 0 10px 30px rgba(255,107,107,0.6);
         }
-        
         .btn-spin:disabled {
             background: #666;
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
         }
-        
         .message {
             text-align: center;
             color: #FFD700;
@@ -195,21 +164,12 @@
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
-        
-        .message.win {
-            color: #00FF00;
-            animation: pulse 0.5s ease-in-out 3;
-        }
-        
-        .message.lose {
-            color: #FF6B6B;
-        }
-        
+        .message.win { color: #00FF00; animation: pulse 0.5s ease-in-out 3; }
+        .message.lose { color: #FF6B6B; }
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.1); }
         }
-        
         .paytable {
             margin-top: 20px;
             padding: 15px;
@@ -218,67 +178,39 @@
             color: #FFD700;
             border: 2px solid #FFD700;
         }
-        
         .paytable h3 {
             text-align: center;
             margin-bottom: 10px;
             color: #FFD700;
         }
-        
         .paytable-item {
             display: flex;
             justify-content: space-between;
             padding: 8px 0;
             border-bottom: 1px solid rgba(255,215,0,0.3);
         }
-        
         @media (max-width: 600px) {
-            .reel-window {
-                width: 80px;
-                height: 80px;
-            }
-            .symbol {
-                width: 80px;
-                height: 80px;
-                font-size: 2.5em;
-            }
-            .title {
-                font-size: 2em;
-            }
-            .machine {
-                padding: 20px;
-            }
+            .reel-window { width: 80px; height: 80px; }
+            .reel-content { font-size: 2.5em; }
+            .title { font-size: 2em; }
+            .machine { padding: 20px; }
         }
     </style>
 </head>
 <body>
     <div class="machine">
         <h1 class="title">🎰 王老师老虎机</h1>
-        
         <div class="display">
             <div class="reels-container">
-                <div class="reel-window">
-                    <div class="reel-strip" id="reel1">
-                        <div class="symbol">🎰</div>
-                    </div>
-                </div>
-                <div class="reel-window">
-                    <div class="reel-strip" id="reel2">
-                        <div class="symbol">🎰</div>
-                    </div>
-                </div>
-                <div class="reel-window">
-                    <div class="reel-strip" id="reel3">
-                        <div class="symbol">🎰</div>
-                    </div>
-                </div>
+                <div class="reel-window"><div class="reel-content" id="reel1">🎰</div></div>
+                <div class="reel-window"><div class="reel-content" id="reel2">🎰</div></div>
+                <div class="reel-window"><div class="reel-content" id="reel3">🎰</div></div>
             </div>
             <div class="info">
                 <span>💰 余额: $<span id="balance">1000</span></span>
                 <span>🎯 下注: $<span id="currentBet">10</span></span>
             </div>
         </div>
-        
         <div class="controls">
             <div class="bet-controls">
                 <button class="btn btn-bet" onclick="setBet(5)">$5</button>
@@ -287,12 +219,9 @@
                 <button class="btn btn-bet" onclick="setBet(50)">$50</button>
                 <button class="btn btn-bet" onclick="setBet(100)">$100</button>
             </div>
-            
             <button class="btn btn-spin" id="spinBtn" onclick="spin()">🎲 开始旋转</button>
-            
             <div class="message" id="message">选择下注金额，点击旋转！</div>
         </div>
-        
         <div class="paytable">
             <h3>📋 赔率表</h3>
             <div class="paytable-item"><span>🎰🎰🎰 777</span><span>50倍</span></div>
@@ -312,50 +241,30 @@
         let spinning = false;
         
         const symbols = ['🎰', '💎', '7️⃣', '🍒', '🍋', '🍊', '🍇', '🔔'];
-        const payouts = {
-            '🎰🎰🎰': 50,
-            '💎💎💎': 20,
-            '7️⃣7️⃣7️⃣': 10,
-            '🍒🍒🍒': 5,
-            '🍋🍋🍋': 3,
-            '🍊🍊🍊': 2
-        };
+        const payouts = { '🎰🎰🎰': 50, '💎💎💎': 20, '7️⃣7️⃣7️⃣': 10, '🍒🍒🍒': 5, '🍋🍋🍋': 3, '🍊🍊🍊': 2 };
         
         function setBet(amount) {
             if (spinning) return;
             currentBet = amount;
             document.getElementById('currentBet').textContent = amount;
-            document.querySelectorAll('.btn-bet').forEach(btn => {
-                btn.classList.remove('active');
-            });
+            document.querySelectorAll('.btn-bet').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
         }
         
         function getRandomSymbol() {
-            // 中奖概率配置（数字越大出现概率越高）
-            // 🎰 777, 💎 钻石, 7️⃣ 数字7, 🍒 樱桃, 🍋 柠檬, 🍊 橙子, 🍇 葡萄, 🔔 铃铛
             const weights = [0.03, 0.06, 0.09, 0.18, 0.22, 0.24, 0.15, 0.03];
-            let random = Math.random();
-            let sum = 0;
+            let random = Math.random(), sum = 0;
             for (let i = 0; i < symbols.length; i++) {
                 sum += weights[i];
                 if (random <= sum) return symbols[i];
             }
-            return symbols[symbols.length - 1];
-        }
-        
-        function createReelStrip() {
-            let strip = '';
-            for (let i = 0; i < 20; i++) {
-                strip += `<div class="symbol">${getRandomSymbol()}</div>`;
-            }
-            return strip;
+            return symbols[0];
         }
         
         async function spin() {
             if (spinning) return;
             if (balance < currentBet) {
-                showMessage('余额不足！请减少下注或重新开始游戏。', 'lose');
+                showMessage('余额不足！', 'lose');
                 return;
             }
             
@@ -372,30 +281,50 @@
             const reel2 = document.getElementById('reel2');
             const reel3 = document.getElementById('reel3');
             
-            const results = [getRandomSymbol(), getRandomSymbol(), getRandomSymbol()];
+            // 先生成最终结果
+            const result1 = getRandomSymbol();
+            const result2 = getRandomSymbol();
+            const result3 = getRandomSymbol();
             
-            const duration1 = 1500 + Math.random() * 500;
-            const duration2 = 2000 + Math.random() * 500;
-            const duration3 = 2500 + Math.random() * 500;
+            // 添加旋转模糊效果
+            reel1.classList.add('spinning');
+            reel2.classList.add('spinning');
+            reel3.classList.add('spinning');
             
-            // 开始滚动动画
-            const stop1 = animateReel(reel1, duration1);
-            await new Promise(r => setTimeout(r, 200));
-            const stop2 = animateReel(reel2, duration2);
-            await new Promise(r => setTimeout(r, 200));
-            const stop3 = animateReel(reel3, duration3);
+            // 快速切换符号模拟滚动
+            let count = 0;
+            const maxCount = 30;
+            const interval = setInterval(() => {
+                reel1.textContent = getRandomSymbol();
+                reel2.textContent = getRandomSymbol();
+                reel3.textContent = getRandomSymbol();
+                count++;
+                if (count >= maxCount) clearInterval(interval);
+            }, 80);
             
-            // 等待所有停止
-            await new Promise(r => setTimeout(r, duration3 + 300));
+            // 第一个停止
+            await new Promise(r => setTimeout(r, 1200));
+            clearInterval(interval);
+            reel1.classList.remove('spinning');
+            reel1.textContent = result1;
+            reel1.style.transform = 'scale(1.1)';
+            setTimeout(() => reel1.style.transform = 'scale(1)', 150);
             
-            // 显示最终结果
-            reel1.innerHTML = `<div class="symbol">${results[0]}</div>`;
-            reel1.style.transform = 'translateY(0)';
-            reel2.innerHTML = `<div class="symbol">${results[1]}</div>`;
-            reel2.style.transform = 'translateY(0)';
-            reel3.innerHTML = `<div class="symbol">${results[2]}</div>`;
-            reel3.style.transform = 'translateY(0)';
+            // 第二个停止
+            await new Promise(r => setTimeout(r, 400));
+            reel2.classList.remove('spinning');
+            reel2.textContent = result2;
+            reel2.style.transform = 'scale(1.1)';
+            setTimeout(() => reel2.style.transform = 'scale(1)', 150);
             
+            // 第三个停止
+            await new Promise(r => setTimeout(r, 400));
+            reel3.classList.remove('spinning');
+            reel3.textContent = result3;
+            reel3.style.transform = 'scale(1.1)';
+            setTimeout(() => reel3.style.transform = 'scale(1)', 150);
+            
+            const results = [result1, result2, result3];
             checkWin(results);
             
             spinning = false;
@@ -413,42 +342,10 @@
             }
         }
         
-        function animateReel(reel, duration) {
-            // 创建滚动条带
-            let stripHTML = '';
-            for (let i = 0; i < 15; i++) {
-                stripHTML += `<div class="symbol">${getRandomSymbol()}</div>`;
-            }
-            reel.innerHTML = stripHTML;
-            
-            const startTime = Date.now();
-            const symbolHeight = 100;
-            const totalHeight = reel.scrollHeight - symbolHeight;
-            
-            function animate() {
-                const elapsed = Date.now() - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                // 缓动：开始快，最后慢
-                const easeOut = 1 - Math.pow(1 - progress, 3);
-                const position = totalHeight * easeOut;
-                
-                reel.style.transform = `translateY(-${position}px)`;
-                
-                if (progress < 1) {
-                    requestAnimationFrame(animate);
-                }
-            }
-            
-            animate();
-        }
-        
         function checkWin(results) {
             const combo = results.join('');
             const [a, b, c] = results;
-            
-            let winAmount = 0;
-            let message = '';
-            let multiplier = 0;
+            let winAmount = 0, message = '', multiplier = 0;
             
             if (payouts[combo]) {
                 multiplier = payouts[combo];
@@ -456,7 +353,7 @@
                 message = `🎉 大奖！${combo}！赢得 $${winAmount}！`;
             } else if (a === b || b === c || a === c) {
                 multiplier = 1;
-                winAmount = currentBet * 1;
+                winAmount = currentBet;
                 message = `🙂 小奖！两个相同，返还 $${winAmount}`;
             } else {
                 message = '😔 没有中奖，再试一次！';
@@ -465,98 +362,32 @@
             if (winAmount > 0) {
                 balance += winAmount;
                 showMessage(message, 'win');
-                // 烟花效果根据奖励倍数
                 launchFireworks(multiplier);
             } else {
                 showMessage(message, 'lose');
             }
-            
             updateDisplay();
         }
         
-        // 烟花效果
         function launchFireworks(multiplier) {
             if (multiplier >= 50) {
-                // 超级大奖 - 盛大烟花
-                const duration = 3000;
-                const end = Date.now() + duration;
+                const duration = 3000, end = Date.now() + duration;
                 const colors = ['#FFD700', '#FF6B6B', '#4CAF50', '#2196F3', '#FF9800'];
-                
                 (function frame() {
-                    confetti({
-                        particleCount: 5,
-                        angle: 60,
-                        spread: 55,
-                        origin: { x: 0 },
-                        colors: colors
-                    });
-                    confetti({
-                        particleCount: 5,
-                        angle: 120,
-                        spread: 55,
-                        origin: { x: 1 },
-                        colors: colors
-                    });
-                    
-                    if (Date.now() < end) {
-                        requestAnimationFrame(frame);
-                    }
+                    confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: colors });
+                    confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: colors });
+                    if (Date.now() < end) requestAnimationFrame(frame);
                 }());
-                
-                // 中间大爆炸
-                setTimeout(() => {
-                    confetti({
-                        particleCount: 150,
-                        spread: 180,
-                        origin: { y: 0.6 },
-                        colors: colors
-                    });
-                }, 500);
-                
+                setTimeout(() => confetti({ particleCount: 150, spread: 180, origin: { y: 0.6 }, colors: colors }), 500);
             } else if (multiplier >= 20) {
-                // 大奖 - 金色烟花
-                confetti({
-                    particleCount: 100,
-                    spread: 100,
-                    origin: { y: 0.6 },
-                    colors: ['#FFD700', '#FFA500', '#FF6B6B']
-                });
-                
-                setTimeout(() => {
-                    confetti({
-                        particleCount: 80,
-                        spread: 120,
-                        origin: { y: 0.7 },
-                        colors: ['#FFD700', '#FFA500']
-                    });
-                }, 300);
-                
+                confetti({ particleCount: 100, spread: 100, origin: { y: 0.6 }, colors: ['#FFD700', '#FFA500', '#FF6B6B'] });
+                setTimeout(() => confetti({ particleCount: 80, spread: 120, origin: { y: 0.7 }, colors: ['#FFD700', '#FFA500'] }), 300);
             } else if (multiplier >= 10) {
-                // 中等奖励 - 彩色烟花
-                confetti({
-                    particleCount: 60,
-                    spread: 80,
-                    origin: { y: 0.6 },
-                    colors: ['#4CAF50', '#2196F3', '#FF9800']
-                });
-                
+                confetti({ particleCount: 60, spread: 80, origin: { y: 0.6 }, colors: ['#4CAF50', '#2196F3', '#FF9800'] });
             } else if (multiplier >= 5) {
-                // 小奖 - 简单彩带
-                confetti({
-                    particleCount: 40,
-                    spread: 60,
-                    origin: { y: 0.7 },
-                    colors: ['#4CAF50', '#81C784']
-                });
-                
+                confetti({ particleCount: 40, spread: 60, origin: { y: 0.7 }, colors: ['#4CAF50', '#81C784'] });
             } else {
-                // 最小奖 - 少量彩带
-                confetti({
-                    particleCount: 25,
-                    spread: 50,
-                    origin: { y: 0.8 },
-                    colors: ['#81C784']
-                });
+                confetti({ particleCount: 25, spread: 50, origin: { y: 0.8 }, colors: ['#81C784'] });
             }
         }
         
@@ -571,10 +402,7 @@
         }
         
         document.addEventListener('keydown', (e) => {
-            if (e.code === 'Space') {
-                e.preventDefault();
-                spin();
-            }
+            if (e.code === 'Space') { e.preventDefault(); spin(); }
         });
     </script>
 </body>
