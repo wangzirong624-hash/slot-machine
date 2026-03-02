@@ -25,15 +25,13 @@
             background: linear-gradient(145deg, #8B0000 0%, #DC143C 50%, #8B0000 100%);
             border-radius: 30px;
             padding: 40px;
-            box-shadow: 
-                0 20px 60px rgba(0,0,0,0.5),
-                inset 0 2px 10px rgba(255,255,255,0.2);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
             max-width: 500px;
             width: 100%;
+            text-align: center;
         }
         
         .title {
-            text-align: center;
             color: #FFD700;
             font-size: 2.5em;
             margin-bottom: 20px;
@@ -55,40 +53,52 @@
             box-shadow: inset 0 0 20px rgba(255,215,0,0.3);
         }
         
-        .reels {
+        .reels-container {
             display: flex;
             justify-content: center;
             gap: 10px;
             margin-bottom: 20px;
+            background: #333;
+            padding: 10px;
+            border-radius: 10px;
+            border: 3px solid #666;
         }
         
-        .reel {
+        .reel-window {
             width: 100px;
             height: 100px;
-            background: linear-gradient(145deg, #fff 0%, #f0f0f0 100%);
+            background: #fff;
             border-radius: 10px;
+            border: 3px solid #333;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+        }
+        
+        .reel-strip {
+            position: absolute;
+            width: 100%;
+            transition: transform 0.1s linear;
+        }
+        
+        .reel-strip.spinning {
+            animation: reel-spin 0.5s linear infinite;
+        }
+        
+        @keyframes reel-spin {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-600px); }
+        }
+        
+        .symbol {
+            width: 100px;
+            height: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 3em;
-            border: 3px solid #333;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            transition: transform 0.1s;
-        }
-        
-          .reel.spinning {
-            animation: none;
-        }
-        
-        .reel.spinning::before {
-            content: '🎰';
-            position: absolute;
-            animation: reel-blur 0.1s linear infinite;
-        }
-        
-        @keyframes reel-blur {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(0.95); }
+            background: linear-gradient(145deg, #fff 0%, #f0f0f0 100%);
+            border-bottom: 1px solid #ddd;
         }
         
         .info {
@@ -200,7 +210,11 @@
         }
         
         @media (max-width: 600px) {
-            .reel {
+            .reel-window {
+                width: 80px;
+                height: 80px;
+            }
+            .symbol {
                 width: 80px;
                 height: 80px;
                 font-size: 2.5em;
@@ -216,10 +230,22 @@
         <h1 class="title">🎰 王老师老虎机</h1>
         
         <div class="display">
-            <div class="reels">
-                <div class="reel" id="reel1">🎰</div>
-                <div class="reel" id="reel2">🎰</div>
-                <div class="reel" id="reel3">🎰</div>
+            <div class="reels-container">
+                <div class="reel-window">
+                    <div class="reel-strip" id="reel1">
+                        <div class="symbol">🎰</div>
+                    </div>
+                </div>
+                <div class="reel-window">
+                    <div class="reel-strip" id="reel2">
+                        <div class="symbol">🎰</div>
+                    </div>
+                </div>
+                <div class="reel-window">
+                    <div class="reel-strip" id="reel3">
+                        <div class="symbol">🎰</div>
+                    </div>
+                </div>
             </div>
             <div class="info">
                 <span>💰 余额: $<span id="balance">1000</span></span>
@@ -254,9 +280,12 @@
     </div>
 
     <script>
-        // 游戏配置
-        const SYMBOLS = ['🎰', '💎', '7️⃣', '🍒', '🍋', '🍊', '🍇', '🔔'];
-        const PAYOUTS = {
+        let balance = 1000;
+        let currentBet = 10;
+        let spinning = false;
+        
+        const symbols = ['🎰', '💎', '7️⃣', '🍒', '🍋', '🍊', '🍇', '🔔'];
+        const payouts = {
             '🎰🎰🎰': 50,
             '💎💎💎': 20,
             '7️⃣7️⃣7️⃣': 10,
@@ -265,141 +294,88 @@
             '🍊🍊🍊': 2
         };
         
-        // 游戏状态
-        let balance = 1000;
-        let currentBet = 10;
-        let isSpinning = false;
-        
-        // 设置下注金额
         function setBet(amount) {
-            if (isSpinning) return;
+            if (spinning) return;
             currentBet = amount;
             document.getElementById('currentBet').textContent = amount;
-            
-            // 更新按钮状态
             document.querySelectorAll('.btn-bet').forEach(btn => {
                 btn.classList.remove('active');
             });
             event.target.classList.add('active');
         }
         
-        // 获取随机符号
         function getRandomSymbol() {
-            // 调整概率：大奖概率低，小奖概率高
             const weights = [0.05, 0.08, 0.10, 0.15, 0.20, 0.22, 0.15, 0.05];
             let random = Math.random();
             let sum = 0;
-            
-            for (let i = 0; i < SYMBOLS.length; i++) {
+            for (let i = 0; i < symbols.length; i++) {
                 sum += weights[i];
-                if (random <= sum) return SYMBOLS[i];
+                if (random <= sum) return symbols[i];
             }
-            return SYMBOLS[SYMBOLS.length - 1];
+            return symbols[symbols.length - 1];
         }
         
-        // 旋转动画
+        function createReelStrip() {
+            // 创建一个长条带多个符号
+            let strip = '';
+            for (let i = 0; i < 20; i++) {
+                strip += `<div class="symbol">${getRandomSymbol()}</div>`;
+            }
+            return strip;
+        }
+        
         async function spin() {
-            if (isSpinning) return;
+            if (spinning) return;
             if (balance < currentBet) {
                 showMessage('余额不足！请减少下注或重新开始游戏。', 'lose');
                 return;
             }
             
-            isSpinning = true;
+            spinning = true;
             balance -= currentBet;
             updateDisplay();
+            
+            const btn = document.getElementById('spinBtn');
+            btn.disabled = true;
+            btn.textContent = '🎲 旋转中...';
+            showMessage('祝你好运！');
             
             const reel1 = document.getElementById('reel1');
             const reel2 = document.getElementById('reel2');
             const reel3 = document.getElementById('reel3');
-            const spinBtn = document.getElementById('spinBtn');
             
-            spinBtn.disabled = true;
-            spinBtn.textContent = '🎲 旋转中...';
-            showMessage('祝你好运！🍀');
-            
-     // 快速滚动效果
-            const spinDuration = 1500; // 总旋转时间1.5秒
-            const interval = 80; // 每80ms切换一次
-            const iterations = spinDuration / interval;
-            
-            let count = 0;
-            const spinInterval = setInterval(() => {
-                reel1.textContent = getRandomSymbol();
-                reel2.textContent = getRandomSymbol();
-                reel3.textContent = getRandomSymbol();
-                count++;
-                
-                if (count >= iterations) {
-                    clearInterval(spinInterval);
-                }
-            }, interval);
-            
-            // 生成最终结果
+            // 生成结果
             const results = [getRandomSymbol(), getRandomSymbol(), getRandomSymbol()];
             
-            // 逐个停止
-            await new Promise(r => setTimeout(r, 800));
-            reel1.style.transform = 'scale(1.1)';
-            setTimeout(() => reel1.style.transform = 'scale(1)', 100);
-            reel1.textContent = results[0];
+            // 为每个滚轮创建长条
+            reel1.innerHTML = createReelStrip() + `<div class="symbol">${results[0]}</div>`;
+            reel2.innerHTML = createReelStrip() + `<div class="symbol">${results[1]}</div>`;
+            reel3.innerHTML = createReelStrip() + `<div class="symbol">${results[2]}</div>`;
             
-            await new Promise(r => setTimeout(r, 400));
-            reel2.style.transform = 'scale(1.1)';
-            setTimeout(() => reel2.style.transform = 'scale(1)', 100);
-            reel2.textContent = results[1];
+            // 动画滚动
+            const duration1 = 2000 + Math.random() * 500;
+            const duration2 = 2500 + Math.random() * 500;
+            const duration3 = 3000 + Math.random() * 500;
             
-            await new Promise(r => setTimeout(r, 400));
-            reel3.style.transform = 'scale(1.1)';
-            setTimeout(() => reel3.style.transform = 'scale(1)', 100);
-            reel3.textContent = results[2];
+            animateReel(reel1, duration1);
+            setTimeout(() => animateReel(reel2, duration2), 200);
+            setTimeout(() => animateReel(reel3, duration3), 400);
             
-            // 计算结果
+            // 等待所有停止
+            await new Promise(r => setTimeout(r, duration3 + 500));
+            
+            // 显示结果
+            reel1.innerHTML = `<div class="symbol">${results[0]}</div>`;
+            reel2.innerHTML = `<div class="symbol">${results[1]}</div>`;
+            reel3.innerHTML = `<div class="symbol">${results[2]}</div>`;
+            
+            // 检查输赢
             checkWin(results);
             
-            isSpinning = false;
-            spinBtn.disabled = false;
-            spinBtn.textContent = '🎲 开始旋转';
-        }
-        
-        // 检查中奖
-        function checkWin(results) {
-            const combo = results.join('');
-            const [a, b, c] = results;
+            spinning = false;
+            btn.disabled = false;
+            btn.textContent = '🎲 开始旋转';
             
-            let winAmount = 0;
-            let message = '';
-            
-            if (PAYOUTS[combo]) {
-                // 三个相同
-                winAmount = currentBet * PAYOUTS[combo];
-                message = `🎉 大奖！${combo}！赢得 $${winAmount}！`;
-            } else if (a === b || b === c || a === c) {
-                // 两个相同
-                winAmount = currentBet * 1;
-                message = `🙂 小奖！两个相同，返还 $${winAmount}`;
-            } else {
-                message = '😔 没有中奖，再试一次！';
-            }
-            
-            if (winAmount > 0) {
-                balance += winAmount;
-                showMessage(message, 'win');
-                
-                // 大奖特效
-                if (winAmount >= currentBet * 10) {
-                    document.querySelector('.title').style.animation = 'none';
-                    setTimeout(() => {
-                        document.querySelector('.title').style.animation = 'glow 0.5s ease-in-out infinite';
-                    }, 100);
-                }
-            } else {
-                showMessage(message, 'lose');
-            }
-            
-            updateDisplay();
-            
-            // 检查破产
             if (balance <= 0) {
                 setTimeout(() => {
                     if (confirm('💸 破产了！要重新开始吗？')) {
@@ -411,14 +387,63 @@
             }
         }
         
-        // 显示消息
+        function animateReel(reel, duration) {
+            const startTime = Date.now();
+            const stripHeight = reel.scrollHeight - 100; // 减去显示区域
+            
+            function animate() {
+                const elapsed = Date.now() - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // 缓动函数 - 开始快，最后慢
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const position = stripHeight * easeOut;
+                
+                reel.style.transform = `translateY(-${position}px)`;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    reel.style.transform = `translateY(-${stripHeight}px)`;
+                }
+            }
+            
+            animate();
+        }
+        
+        function checkWin(results) {
+            const combo = results.join('');
+            const [a, b, c] = results;
+            
+            let winAmount = 0;
+            let message = '';
+            
+            if (payouts[combo]) {
+                winAmount = currentBet * payouts[combo];
+                message = `🎉 大奖！${combo}！赢得 $${winAmount}！`;
+            } else if (a === b || b === c || a === c) {
+                winAmount = currentBet * 1;
+                message = `🙂 小奖！两个相同，返还 $${winAmount}`;
+            } else {
+                message = '😔 没有中奖，再试一次！';
+            }
+            
+            if (winAmount > 0) {
+                balance += winAmount;
+                showMessage(message, 'win');
+            } else {
+                showMessage(message, 'lose');
+            }
+            
+            updateDisplay();
+        }
+        
         function showMessage(msg, type = '') {
             const messageEl = document.getElementById('message');
             messageEl.textContent = msg;
             messageEl.className = 'message ' + type;
         }
         
-        // 更新显示
         function updateDisplay() {
             document.getElementById('balance').textContent = balance;
         }
