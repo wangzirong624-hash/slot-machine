@@ -11,11 +11,10 @@
         
         body {
             font-family: 'Arial', sans-serif;
-            background: 
-                radial-gradient(ellipse at center, #1a1a2e 0%, #0f0f1e 50%, #000 100%),
-                linear-gradient(45deg, #1a1a2e 25%, transparent 25%),
-                linear-gradient(-45deg, #1a1a2e 25%, transparent 25%);
-            background-size: 100% 100%, 60px 60px, 60px 60px;
+            background-image: url('casino-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -24,21 +23,13 @@
             overflow-x: hidden;
         }
         
-        /* 背景闪烁效果 */
+        /* 暗色遮罩 */
         body::before {
             content: '';
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(255,215,0,0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, rgba(255,107,107,0.1) 0%, transparent 50%);
-            animation: bgPulse 4s ease-in-out infinite;
+            background: rgba(0,0,0,0.5);
             z-index: -1;
-        }
-        
-        @keyframes bgPulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
         }
         
         /* 主机器 - 金碧辉煌 */
