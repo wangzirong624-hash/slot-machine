@@ -5,162 +5,154 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎰 王老师老虎机</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap');
-        
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: 'Arial', sans-serif;
-            background-image: url('casino-bg.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            background: #000;
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
-            padding: 20px;
+            align-items: flex-start;
+            padding: 10px;
             overflow-x: hidden;
         }
         
-        /* 暗色遮罩 */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: -1;
-        }
-        
-        /* 主机器 - 现代赌场蓝色霓虹风格 */
-        .machine {
-            background: linear-gradient(145deg, 
-                #0a0a1a 0%, 
+        /* 主机器外壳 - 立式弧形 */
+        .machine-outer {
+            background: linear-gradient(180deg, 
+                #1a0a2e 0%, 
+                #2d1b4e 10%,
                 #1a1a2e 30%,
                 #0f0f1e 70%,
-                #050510 100%);
-            border-radius: 30px;
-            padding: 40px 35px;
+                #1a0a2e 100%);
+            border-radius: 150px 150px 30px 30px;
+            padding: 8px;
             box-shadow: 
-                0 0 80px rgba(0,150,255,0.4),
-                0 0 150px rgba(0,100,200,0.2),
-                inset 0 0 60px rgba(0,0,0,0.8),
-                inset 0 0 30px rgba(0,150,255,0.1);
-            max-width: 520px;
+                0 0 50px rgba(138,43,226,0.5),
+                0 0 100px rgba(75,0,130,0.3),
+                inset 0 0 50px rgba(0,0,0,0.5);
+            max-width: 420px;
             width: 100%;
-            text-align: center;
-            border: 6px solid transparent;
-            border-image: linear-gradient(180deg, 
-                #00d4ff 0%, 
-                #0099cc 50%, 
-                #006699 100%) 1;
             position: relative;
         }
         
-        /* 顶部蓝色霓虹灯条 */
-        .machine::before {
-            content: '';
+        /* 机器内部 */
+        .machine {
+            background: linear-gradient(180deg, 
+                #0a0a15 0%, 
+                #151525 50%,
+                #0a0a15 100%);
+            border-radius: 145px 145px 25px 25px;
+            padding: 30px 25px 25px;
+            border: 3px solid #4a0080;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
+        }
+        
+        /* 顶部弧形霓虹灯 */
+        .top-arc {
             position: absolute;
-            top: -6px;
-            left: 10%;
-            right: 10%;
-            height: 6px;
-            background: linear-gradient(90deg, 
-                transparent, 
-                #00d4ff, 
-                #00aaff, 
-                #00d4ff, 
-                transparent);
-            box-shadow: 0 0 30px #00d4ff, 0 0 60px #0099cc;
-            animation: bluePulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes bluePulse {
-            0%, 100% { opacity: 0.6; box-shadow: 0 0 20px #00d4ff; }
-            50% { opacity: 1; box-shadow: 0 0 40px #00d4ff, 0 0 80px #0099cc; }
-        }
-        
-        /* 标题 - 蓝色霓虹 */
-        .title {
-            font-family: 'Arial', sans-serif;
-            color: #00d4ff;
-            font-size: 2.4em;
-            margin: 15px 0 25px;
-            text-shadow: 
-                0 0 10px #00d4ff,
-                0 0 20px #00aaff,
-                0 0 40px #0099cc,
-                0 0 80px rgba(0,150,255,0.5);
-            animation: blueNeon 2s ease-in-out infinite alternate;
-            letter-spacing: 8px;
-            font-weight: bold;
-        }
-        
-        @keyframes blueNeon {
-            from { text-shadow: 0 0 10px #00d4ff, 0 0 20px #00aaff; }
-            to { text-shadow: 0 0 20px #00d4ff, 0 0 40px #00aaff, 0 0 60px #0099cc; }
-        }
-        
-        /* 显示屏区域 - 蓝色霓虹 */
-        .display {
-            background: linear-gradient(145deg, #050510 0%, #0a0a1a 50%, #050510 100%);
-            border-radius: 20px;
-            padding: 25px 20px;
-            margin-bottom: 25px;
-            border: 4px solid #00d4ff;
-            box-shadow: 
-                inset 0 0 30px rgba(0,0,0,0.9),
-                0 0 30px rgba(0,212,255,0.3),
-                inset 0 0 15px rgba(0,212,255,0.1);
-            position: relative;
-        }
-        
-        .display::before {
-            content: 'WINNER';
-            position: absolute;
-            top: -10px;
+            top: 15px;
             left: 50%;
             transform: translateX(-50%);
-            background: linear-gradient(145deg, #00d4ff, #0099cc);
-            color: #000;
-            padding: 3px 25px;
-            font-size: 0.8em;
-            font-weight: bold;
-            border-radius: 10px;
-            letter-spacing: 4px;
-            box-shadow: 0 0 20px rgba(0,212,255,0.6);
+            width: 85%;
+            height: 60px;
+            background: linear-gradient(180deg, 
+                #ff00ff 0%,
+                #9900cc 50%,
+                #4a0080 100%);
+            border-radius: 100px 100px 20px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 0 30px #ff00ff,
+                0 0 60px #9900cc,
+                inset 0 0 20px rgba(255,255,255,0.2);
+            animation: purpleGlow 2s ease-in-out infinite alternate;
         }
         
-        /* 滚轮容器 - 黑色金属 */
+        @keyframes purpleGlow {
+            from { box-shadow: 0 0 20px #ff00ff, 0 0 40px #9900cc; }
+            to { box-shadow: 0 0 40px #ff00ff, 0 0 80px #9900cc, 0 0 120px #4a0080; }
+        }
+        
+        .top-arc h1 {
+            color: #fff;
+            font-size: 1.4em;
+            text-shadow: 
+                0 0 10px #fff,
+                0 0 20px #ff00ff;
+            letter-spacing: 3px;
+            font-weight: bold;
+        }
+        
+        /* 顶部状态灯 */
+        .status-lights {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 50px 0 15px;
+        }
+        
+        .light {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #333;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+        }
+        
+        .light.on {
+            background: #ff00ff;
+            box-shadow: 0 0 15px #ff00ff, 0 0 30px #ff00ff;
+            animation: blink 0.5s ease-in-out infinite alternate;
+        }
+        
+        @keyframes blink {
+            from { opacity: 0.5; }
+            to { opacity: 1; }
+        }
+        
+        /* 主显示屏区域 */
+        .main-screen {
+            background: #000;
+            border-radius: 20px;
+            padding: 15px;
+            border: 4px solid #333;
+            box-shadow: 
+                inset 0 0 20px rgba(0,0,0,0.9),
+                0 0 20px rgba(0,150,255,0.2);
+            margin-bottom: 15px;
+        }
+        
+        /* 滚轮区域 */
+        .reels-frame {
+            background: linear-gradient(145deg, #1a1a2e, #0f0f1e);
+            border-radius: 15px;
+            padding: 12px;
+            border: 2px solid #0066cc;
+            box-shadow: 
+                0 0 20px rgba(0,100,200,0.3),
+                inset 0 0 10px rgba(0,0,0,0.5);
+        }
+        
         .reels-container {
             display: flex;
             justify-content: center;
-            gap: 12px;
-            margin-bottom: 20px;
-            background: linear-gradient(145deg, 
-                #1a1a2e 0%, 
-                #0f0f1e 50%, 
-                #0a0a1a 100%);
-            padding: 18px;
-            border-radius: 15px;
-            border: 3px solid #1a3a5c;
-            box-shadow: 
-                inset 0 0 20px rgba(0,0,0,0.9),
-                0 5px 15px rgba(0,0,0,0.5),
-                0 0 20px rgba(0,150,255,0.1);
+            gap: 8px;
         }
         
-        /* 单个滚轮窗口 - 蓝色霓虹边框 */
         .reel-window {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(145deg, #fff 0%, #e8e8e8 100%);
-            border-radius: 12px;
-            border: 4px solid #00d4ff;
+            width: 95px;
+            height: 95px;
+            background: linear-gradient(145deg, #fff, #e0e0e0);
+            border-radius: 10px;
+            border: 3px solid #0099ff;
             overflow: hidden;
             position: relative;
             box-shadow: 
-                0 0 20px rgba(0,212,255,0.4),
+                0 0 15px rgba(0,150,255,0.4),
                 inset 0 0 10px rgba(0,0,0,0.1);
         }
         
@@ -168,269 +160,251 @@
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(
-                180deg,
-                rgba(0,0,0,0.4) 0%,
-                transparent 20%,
-                transparent 80%,
-                rgba(0,0,0,0.4) 100%
+            background: linear-gradient(180deg,
+                rgba(0,0,0,0.3) 0%,
+                transparent 15%,
+                transparent 85%,
+                rgba(0,0,0,0.3) 100%
             );
-            pointer-events: none;
             z-index: 10;
+            pointer-events: none;
         }
         
         .reel-strip {
             position: absolute;
             width: 100%;
             top: 0;
-            will-change: transform;
         }
         
         .symbol {
-            width: 100px;
-            height: 100px;
+            width: 95px;
+            height: 95px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 3em;
-            background: linear-gradient(145deg, #fff 0%, #f5f5f5 50%, #e8e8e8 100%);
-            border-bottom: 2px solid #ddd;
+            background: linear-gradient(145deg, #fff, #f0f0f0);
+            border-bottom: 1px solid #ddd;
         }
         
         .symbol-blur {
-            filter: blur(3px);
+            filter: blur(2px);
         }
         
-        /* 信息栏 - 蓝色霓虹 */
-        .info {
+        /* 信用额度显示 */
+        .credit-display {
             display: flex;
             justify-content: space-between;
-            color: #00d4ff;
-            font-size: 1.2em;
+            margin-top: 12px;
+            padding: 8px 12px;
+            background: linear-gradient(145deg, #1a0a1e, #0f050f);
+            border-radius: 8px;
+            border: 2px solid #ff00ff;
+        }
+        
+        .credit-box {
+            text-align: center;
+        }
+        
+        .credit-label {
+            color: #ff66ff;
+            font-size: 0.7em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .credit-value {
+            color: #fff;
+            font-size: 1.3em;
             font-weight: bold;
-            text-shadow: 0 0 10px rgba(0,212,255,0.5);
-            padding: 0 5px;
+            text-shadow: 0 0 10px #ff00ff;
         }
         
-        .info span {
-            background: rgba(0,0,0,0.6);
-            padding: 8px 15px;
-            border-radius: 10px;
-            border: 2px solid #00d4ff;
-            box-shadow: 0 0 15px rgba(0,212,255,0.2);
+        /* 控制面板 */
+        .control-panel {
+            background: linear-gradient(145deg, #1a1a2e, #0f0f1e);
+            border-radius: 15px;
+            padding: 15px;
+            border: 2px solid #333;
         }
         
-        /* 下注按钮 - 蓝色霓虹 */
-        .bet-controls {
+        /* 下注按钮行 */
+        .bet-row {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
+            gap: 6px;
+            margin-bottom: 12px;
         }
         
         .btn-bet {
-            width: 65px;
-            height: 45px;
-            font-size: 1em;
+            flex: 1;
+            max-width: 60px;
+            padding: 10px 5px;
+            font-size: 0.85em;
             font-weight: bold;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            background: linear-gradient(145deg, 
-                #1a1a2e 0%, 
-                #0f0f1e 50%, 
-                #0a0a1a 100%);
-            color: #6688aa;
-            border: 2px solid #1a3a5c;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-            transition: all 0.2s;
-        }
-        
-        .btn-bet:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-            border-color: #00aaff;
+            background: linear-gradient(145deg, #2a2a3e, #1a1a2e);
+            color: #8899aa;
+            border: 2px solid #444;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
         }
         
         .btn-bet.active {
-            background: linear-gradient(145deg, 
-                #00d4ff 0%, 
-                #0099cc 50%, 
-                #006699 100%);
-            color: #000;
-            border-color: #00d4ff;
-            box-shadow: 
-                0 0 20px rgba(0,212,255,0.6),
-                0 0 40px rgba(0,170,255,0.3);
-            text-shadow: none;
+            background: linear-gradient(145deg, #ff0066, #cc0055);
+            color: #fff;
+            border-color: #ff0066;
+            box-shadow: 0 0 15px rgba(255,0,100,0.5);
         }
         
-        /* 旋转按钮 - 蓝色霓虹 */
+        /* 大按钮区域 */
+        .big-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        
         .btn-spin {
-            width: 100%;
-            padding: 22px;
-            font-size: 1.6em;
+            flex: 2;
+            padding: 18px;
+            font-size: 1.4em;
             font-weight: bold;
             border: none;
             border-radius: 12px;
             cursor: pointer;
-            background: linear-gradient(145deg, 
-                #0066cc 0%, 
-                #004499 50%, 
-                #002266 100%);
-            color: #00d4ff;
-            border: 3px solid #00d4ff;
+            background: linear-gradient(145deg, #ff3300, #cc2200);
+            color: #fff;
+            border: 3px solid #ff6600;
             box-shadow: 
-                0 0 30px rgba(0,100,200,0.5),
-                0 10px 30px rgba(0,0,0,0.4),
-                inset 0 0 20px rgba(255,255,255,0.1);
-            text-shadow: 0 0 10px rgba(0,212,255,0.8);
-            transition: all 0.2s;
-            letter-spacing: 5px;
-        }
-        
-        .btn-spin:hover {
-            transform: scale(1.02) translateY(-2px);
-            box-shadow: 
-                0 0 50px rgba(0,150,255,0.6),
-                0 15px 40px rgba(0,0,0,0.5),
-                inset 0 0 30px rgba(255,255,255,0.2);
+                0 0 20px rgba(255,50,0,0.5),
+                0 5px 15px rgba(0,0,0,0.3);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
         
         .btn-spin:disabled {
-            background: #1a1a2e;
-            color: #334466;
-            border-color: #334466;
+            background: #333;
+            border-color: #555;
+            color: #666;
             box-shadow: none;
-            cursor: not-allowed;
-            transform: none;
-            text-shadow: none;
         }
         
-        /* 消息显示 - 蓝色霓虹 */
+        .btn-max {
+            flex: 1;
+            padding: 15px;
+            font-size: 1em;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background: linear-gradient(145deg, #ffcc00, #ff9900);
+            color: #000;
+            border: 2px solid #ffdd44;
+            box-shadow: 0 0 15px rgba(255,200,0,0.4);
+        }
+        
+        /* 消息显示 */
         .message {
             text-align: center;
-            color: #00d4ff;
-            font-size: 1.4em;
-            min-height: 40px;
-            margin-top: 20px;
+            color: #00ff88;
+            font-size: 1.1em;
+            min-height: 25px;
             font-weight: bold;
-            text-shadow: 0 0 10px rgba(0,212,255,0.5);
+            text-shadow: 0 0 10px rgba(0,255,136,0.5);
         }
         
-        .message.win { 
-            color: #00ff88; 
-            text-shadow: 0 0 20px rgba(0,255,136,0.8);
-            animation: winnerPulse 0.5s ease-in-out 3;
+        .message.win { color: #ffdd00; text-shadow: 0 0 15px rgba(255,220,0,0.8); }
+        .message.lose { color: #ff6688; }
+        
+        /* 底部装饰 */
+        .machine-bottom {
+            position: absolute;
+            bottom: -10px;
+            left: 10%;
+            right: 10%;
+            height: 20px;
+            background: linear-gradient(90deg, #ff0066, #ff00ff, #6600ff);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255,0,255,0.5);
         }
         
-        .message.lose { 
-            color: #ff6688;
-            text-shadow: 0 0 10px rgba(255,100,130,0.5);
-        }
-        
-        @keyframes winnerPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-        
-        /* 赔率表 - 蓝色霓虹 */
-        .paytable {
-            margin-top: 20px;
-            padding: 18px;
-            background: linear-gradient(145deg, 
-                rgba(5,5,15,0.8) 0%, 
-                rgba(10,10,25,0.9) 100%);
-            border-radius: 15px;
-            border: 3px solid #00d4ff;
-            box-shadow: 
-                0 0 20px rgba(0,212,255,0.2),
-                inset 0 0 20px rgba(0,0,0,0.5);
-        }
-        
-        .paytable h3 {
-            color: #00d4ff;
-            text-align: center;
-            margin-bottom: 12px;
-            font-size: 1.2em;
-            text-shadow: 0 0 10px rgba(0,212,255,0.5);
-        }
-        
-        .paytable-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 12px;
-            border-bottom: 1px solid rgba(0,212,255,0.2);
-            color: #aaddff;
-            font-size: 1em;
-        }
-        
-        .paytable-item:last-child {
-            border-bottom: none;
-        }
-        
-        .paytable-item span:last-child {
-            color: #ff6688;
-            font-weight: bold;
-            text-shadow: 0 0 5px rgba(255,100,130,0.5);
-        }
-        
-        @media (max-width: 600px) {
-            .machine { padding: 35px 20px; }
-            .title { font-size: 1.8em; letter-spacing: 4px; }
+        @media (max-width: 450px) {
+            .machine { padding: 25px 15px 20px; }
+            .top-arc h1 { font-size: 1.1em; }
             .reel-window, .symbol { width: 80px; height: 80px; }
             .symbol { font-size: 2.5em; }
-            .btn-bet { width: 55px; height: 40px; font-size: 0.9em; }
-            .btn-spin { font-size: 1.3em; padding: 18px; }
+            .btn-spin { font-size: 1.2em; padding: 15px; }
         }
     </style>
 </head>
 <body>
-    <div class="machine">
-        <h1 class="title">王老师老虎机</h1>
-        
-        <div class="display">
-            <div class="reels-container">
-                <div class="reel-window">
-                    <div class="reel-strip" id="reel1"><div class="symbol">🎰</div></div>
-                </div>
-                <div class="reel-window">
-                    <div class="reel-strip" id="reel2"><div class="symbol">🎰</div></div>
-                </div>
-                <div class="reel-window">
-                    <div class="reel-strip" id="reel3"><div class="symbol">🎰</div></div>
-                </div>
-            </div>
-            <div class="info">
-                <span>💰 $<span id="balance">1000</span></span>
-                <span>🎯 $<span id="currentBet">10</span></span>
-            </div>
+    <div class="machine-outer">
+        <div class="top-arc">
+            <h1>🎰 王老师老虎机</h1>
         </div>
         
-        <div class="controls">
-            <div class="bet-controls">
-                <button class="btn-bet" onclick="setBet(5)">$5</button>
-                <button class="btn-bet active" onclick="setBet(10)">$10</button>
-                <button class="btn-bet" onclick="setBet(25)">$25</button>
-                <button class="btn-bet" onclick="setBet(50)">$50</button>
-                <button class="btn-bet" onclick="setBet(100)">$100</button>
+        <div class="machine">
+            <!-- 顶部状态灯 -->
+            <div class="status-lights">
+                <div class="light on"></div>
+                <div class="light"></div>
+                <div class="light on"></div>
+                <div class="light"></div>
+                <div class="light on"></div>
             </div>
             
-            <button class="btn-spin" id="spinBtn" onclick="spin()">🎰 SPIN 🎰</button>
+            <!-- 主屏幕 -->
+            <div class="main-screen">
+                <div class="reels-frame">
+                    <div class="reels-container">
+                        <div class="reel-window">
+                            <div class="reel-strip" id="reel1"><div class="symbol">🎰</div></div>
+                        </div>
+                        <div class="reel-window">
+                            <div class="reel-strip" id="reel2"><div class="symbol">🎰</div></div>
+                        </div>
+                        <div class="reel-window">
+                            <div class="reel-strip" id="reel3"><div class="symbol">🎰</div></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 信用额度 -->
+                <div class="credit-display">
+                    <div class="credit-box">
+                        <div class="credit-label">CREDIT</div>
+                        <div class="credit-value" id="balance">1000</div>
+                    </div>
+                    <div class="credit-box">
+                        <div class="credit-label">BET</div>
+                        <div class="credit-value" id="currentBet">10</div>
+                    </div>
+                </div>
+            </div>
             
-            <div class="message" id="message">选择下注金额，点击旋转！</div>
+            <!-- 控制面板 -->
+            <div class="control-panel">
+                <!-- 下注按钮 -->
+                <div class="bet-row">
+                    <button class="btn-bet" onclick="setBet(5)">$5</button>
+                    <button class="btn-bet active" onclick="setBet(10)">$10</button>
+                    <button class="btn-bet" onclick="setBet(25)">$25</button>
+                    <button class="btn-bet" onclick="setBet(50)">$50</button>
+                    <button class="btn-bet" onclick="setBet(100)">$100</button>
+                </div>
+                
+                <!-- 大按钮 -->
+                <div class="big-buttons">
+                    <button class="btn-spin" id="spinBtn" onclick="spin()">SPIN</button>
+                    <button class="btn-max" onclick="setBet(100);spin()">MAX<br>BET</button>
+                </div>
+                
+                <!-- 消息 -->
+                <div class="message" id="message">选择下注金额，点击SPIN！</div>
+            </div>
         </div>
         
-        <div class="paytable">
-            <h3>📋 赔率表</h3>
-            <div class="paytable-item"><span>🎰🎰🎰 777</span><span>50x</span></div>
-            <div class="paytable-item"><span>💎💎💎 钻石</span><span>20x</span></div>
-            <div class="paytable-item"><span>7️⃣7️⃣7️⃣ 数字7</span><span>10x</span></div>
-            <div class="paytable-item"><span>🍒🍒🍒 樱桃</span><span>5x</span></div>
-            <div class="paytable-item"><span>🍋🍋🍋 柠檬</span><span>3x</span></div>
-            <div class="paytable-item"><span>🍊🍊🍊 橙子</span><span>2x</span></div>
-        </div>
+        <div class="machine-bottom"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -469,7 +443,7 @@
         function spinReel(reel, duration, finalSymbol) {
             return new Promise(resolve => {
                 reel.innerHTML = createStrip(finalSymbol);
-                const symbolHeight = 110;
+                const symbolHeight = 95;
                 const endPosition = 15 * symbolHeight;
                 const startTime = Date.now();
                 
@@ -506,8 +480,11 @@
             
             const btn = document.getElementById('spinBtn');
             btn.disabled = true;
-            btn.textContent = '旋转中...';
-            showMessage('祝你好运！🍀');
+            btn.textContent = '...';
+            showMessage('GOOD LUCK!');
+            
+            // 闪烁状态灯
+            document.querySelectorAll('.light').forEach(l => l.classList.toggle('on'));
             
             const result1 = getRandomSymbol();
             const result2 = getRandomSymbol();
@@ -519,11 +496,16 @@
                 new Promise(r => setTimeout(() => spinReel(document.getElementById('reel3'), 3000, result3).then(r), 600))
             ]);
             
+            // 恢复状态灯
+            document.querySelectorAll('.light').forEach((l, i) => {
+                l.classList.toggle('on', i % 2 === 0);
+            });
+            
             checkWin([result1, result2, result3]);
             
             spinning = false;
             btn.disabled = false;
-            btn.textContent = '🎰 SPIN 🎰';
+            btn.textContent = 'SPIN';
             
             if (balance <= 0) {
                 setTimeout(() => {
@@ -544,13 +526,13 @@
             if (payouts[combo]) {
                 multiplier = payouts[combo];
                 winAmount = currentBet * multiplier;
-                message = `🎉 大奖！${combo}！赢得 $${winAmount}！`;
+                message = `🎉 JACKPOT! ${combo} WIN $${winAmount}!`;
             } else if (a === b || b === c || a === c) {
                 multiplier = 1;
                 winAmount = currentBet;
-                message = `🙂 小奖！返还 $${winAmount}`;
+                message = `WIN! RETURN $${winAmount}`;
             } else {
-                message = '😔 没有中奖，再试一次！';
+                message = 'TRY AGAIN!';
             }
             
             if (winAmount > 0) {
@@ -566,7 +548,7 @@
         function launchFireworks(m) {
             if (m >= 50) {
                 const end = Date.now() + 3000;
-                const colors = ['#FFD700', '#FF6B6B', '#4CAF50', '#2196F3'];
+                const colors = ['#ff00ff', '#00ffff', '#ffff00', '#ff0066'];
                 (function frame() {
                     confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors });
                     confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors });
@@ -574,11 +556,11 @@
                 }());
                 setTimeout(() => confetti({ particleCount: 150, spread: 180, origin: { y: 0.6 }, colors }), 500);
             } else if (m >= 20) {
-                confetti({ particleCount: 100, spread: 100, origin: { y: 0.6 }, colors: ['#FFD700', '#FFA500'] });
+                confetti({ particleCount: 100, spread: 100, origin: { y: 0.6 }, colors: ['#ff00ff', '#00ffff'] });
             } else if (m >= 10) {
-                confetti({ particleCount: 60, spread: 80, origin: { y: 0.6 }, colors: ['#4CAF50', '#2196F3'] });
+                confetti({ particleCount: 60, spread: 80, origin: { y: 0.6 }, colors: ['#00ff88', '#00ffff'] });
             } else if (m >= 5) {
-                confetti({ particleCount: 40, spread: 60, origin: { y: 0.7 }, colors: ['#4CAF50'] });
+                confetti({ particleCount: 40, spread: 60, origin: { y: 0.7 }, colors: ['#00ff88'] });
             } else {
                 confetti({ particleCount: 25, spread: 50, origin: { y: 0.8 } });
             }
@@ -592,10 +574,6 @@
         function updateDisplay() {
             document.getElementById('balance').textContent = balance;
         }
-        
-        document.addEventListener('keydown', (e) => {
-            if (e.code === 'Space') { e.preventDefault(); spin(); }
-        });
     </script>
 </body>
 </html>
