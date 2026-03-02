@@ -76,14 +76,19 @@
             transition: transform 0.1s;
         }
         
-         .reel.spinning {
-            animation: spin 0.15s linear infinite;
+          .reel.spinning {
+            animation: none;
         }
         
-        @keyframes spin {
-            0% { transform: translateY(0); filter: blur(0.5px); }
-            50% { transform: translateY(-10px); filter: blur(1px); }
-            100% { transform: translateY(0); filter: blur(0.5px); }
+        .reel.spinning::before {
+            content: '🎰';
+            position: absolute;
+            animation: reel-blur 0.1s linear infinite;
+        }
+        
+        @keyframes reel-blur {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(0.95); }
         }
         
         .info {
@@ -313,25 +318,40 @@
             spinBtn.textContent = '🎲 旋转中...';
             showMessage('祝你好运！🍀');
             
-            // 添加旋转动画
-            reel1.classList.add('spinning');
-            reel2.classList.add('spinning');
-            reel3.classList.add('spinning');
+     // 快速滚动效果
+            const spinDuration = 1500; // 总旋转时间1.5秒
+            const interval = 80; // 每80ms切换一次
+            const iterations = spinDuration / interval;
             
-            // 生成结果
+            let count = 0;
+            const spinInterval = setInterval(() => {
+                reel1.textContent = getRandomSymbol();
+                reel2.textContent = getRandomSymbol();
+                reel3.textContent = getRandomSymbol();
+                count++;
+                
+                if (count >= iterations) {
+                    clearInterval(spinInterval);
+                }
+            }, interval);
+            
+            // 生成最终结果
             const results = [getRandomSymbol(), getRandomSymbol(), getRandomSymbol()];
             
-            // 逐个停止（增加悬念）
+            // 逐个停止
             await new Promise(r => setTimeout(r, 800));
-            reel1.classList.remove('spinning');
+            reel1.style.transform = 'scale(1.1)';
+            setTimeout(() => reel1.style.transform = 'scale(1)', 100);
             reel1.textContent = results[0];
             
-            await new Promise(r => setTimeout(r, 600));
-            reel2.classList.remove('spinning');
+            await new Promise(r => setTimeout(r, 400));
+            reel2.style.transform = 'scale(1.1)';
+            setTimeout(() => reel2.style.transform = 'scale(1)', 100);
             reel2.textContent = results[1];
             
-            await new Promise(r => setTimeout(r, 600));
-            reel3.classList.remove('spinning');
+            await new Promise(r => setTimeout(r, 400));
+            reel3.style.transform = 'scale(1.1)';
+            setTimeout(() => reel3.style.transform = 'scale(1)', 100);
             reel3.textContent = results[2];
             
             // 计算结果
