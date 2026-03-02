@@ -155,8 +155,8 @@
         }
         
         .reel-window {
-            width: 95px;
-            height: 95px;
+            width: 90px;
+            height: 90px;
             background: linear-gradient(145deg, #fff, #e0e0e0);
             border-radius: 10px;
             border: 3px solid #0099ff;
@@ -188,12 +188,12 @@
         }
         
         .symbol {
-            width: 95px;
-            height: 95px;
+            width: 90px;
+            height: 90px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3em;
+            font-size: 2.8em;
             background: linear-gradient(145deg, #fff, #f0f0f0);
             border-bottom: 1px solid #ddd;
         }
@@ -342,9 +342,11 @@
         @media (max-width: 450px) {
             .machine { padding: 25px 15px 20px; }
             .top-arc h1 { font-size: 1.1em; }
-            .reel-window, .symbol { width: 80px; height: 80px; }
-            .symbol { font-size: 2.5em; }
+            .reel-window { width: 75px; height: 75px; }
+            .symbol { width: 75px; height: 75px; font-size: 2.3em; }
             .btn-spin { font-size: 1.2em; padding: 15px; }
+            .reels-container { gap: 5px; }
+            .reels-frame { padding: 8px; }
         }
     </style>
 </head>
@@ -454,7 +456,9 @@
         function spinReel(reel, duration, finalSymbol) {
             return new Promise(resolve => {
                 reel.innerHTML = createStrip(finalSymbol);
-                const symbolHeight = 95;
+                // 动态获取符号高度，适配不同屏幕
+                const firstSymbol = reel.querySelector('.symbol');
+                const symbolHeight = firstSymbol ? firstSymbol.offsetHeight : 90;
                 const endPosition = 15 * symbolHeight;
                 const startTime = Date.now();
                 
