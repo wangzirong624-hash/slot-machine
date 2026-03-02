@@ -9,13 +9,24 @@
         
         body {
             font-family: 'Arial', sans-serif;
-            background: #000;
+            background-image: url('casino-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: flex-start;
             padding: 10px;
             overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: -1;
         }
         
         /* 主机器外壳 - 立式弧形 */
