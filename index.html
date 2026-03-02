@@ -305,6 +305,7 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
         let balance = 1000;
         let currentBet = 10;
@@ -447,11 +448,14 @@
             
             let winAmount = 0;
             let message = '';
+            let multiplier = 0;
             
             if (payouts[combo]) {
-                winAmount = currentBet * payouts[combo];
+                multiplier = payouts[combo];
+                winAmount = currentBet * multiplier;
                 message = `🎉 大奖！${combo}！赢得 $${winAmount}！`;
             } else if (a === b || b === c || a === c) {
+                multiplier = 1;
                 winAmount = currentBet * 1;
                 message = `🙂 小奖！两个相同，返还 $${winAmount}`;
             } else {
@@ -461,11 +465,99 @@
             if (winAmount > 0) {
                 balance += winAmount;
                 showMessage(message, 'win');
+                // 烟花效果根据奖励倍数
+                launchFireworks(multiplier);
             } else {
                 showMessage(message, 'lose');
             }
             
             updateDisplay();
+        }
+        
+        // 烟花效果
+        function launchFireworks(multiplier) {
+            if (multiplier >= 50) {
+                // 超级大奖 - 盛大烟花
+                const duration = 3000;
+                const end = Date.now() + duration;
+                const colors = ['#FFD700', '#FF6B6B', '#4CAF50', '#2196F3', '#FF9800'];
+                
+                (function frame() {
+                    confetti({
+                        particleCount: 5,
+                        angle: 60,
+                        spread: 55,
+                        origin: { x: 0 },
+                        colors: colors
+                    });
+                    confetti({
+                        particleCount: 5,
+                        angle: 120,
+                        spread: 55,
+                        origin: { x: 1 },
+                        colors: colors
+                    });
+                    
+                    if (Date.now() < end) {
+                        requestAnimationFrame(frame);
+                    }
+                }());
+                
+                // 中间大爆炸
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 150,
+                        spread: 180,
+                        origin: { y: 0.6 },
+                        colors: colors
+                    });
+                }, 500);
+                
+            } else if (multiplier >= 20) {
+                // 大奖 - 金色烟花
+                confetti({
+                    particleCount: 100,
+                    spread: 100,
+                    origin: { y: 0.6 },
+                    colors: ['#FFD700', '#FFA500', '#FF6B6B']
+                });
+                
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 80,
+                        spread: 120,
+                        origin: { y: 0.7 },
+                        colors: ['#FFD700', '#FFA500']
+                    });
+                }, 300);
+                
+            } else if (multiplier >= 10) {
+                // 中等奖励 - 彩色烟花
+                confetti({
+                    particleCount: 60,
+                    spread: 80,
+                    origin: { y: 0.6 },
+                    colors: ['#4CAF50', '#2196F3', '#FF9800']
+                });
+                
+            } else if (multiplier >= 5) {
+                // 小奖 - 简单彩带
+                confetti({
+                    particleCount: 40,
+                    spread: 60,
+                    origin: { y: 0.7 },
+                    colors: ['#4CAF50', '#81C784']
+                });
+                
+            } else {
+                // 最小奖 - 少量彩带
+                confetti({
+                    particleCount: 25,
+                    spread: 50,
+                    origin: { y: 0.8 },
+                    colors: ['#81C784']
+                });
+            }
         }
         
         function showMessage(msg, type = '') {
