@@ -5,184 +5,401 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎰 王老师老虎机</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap');
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
             font-family: 'Arial', sans-serif;
-            background-image: url('casino-bg.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            background: 
+                radial-gradient(ellipse at center, #1a1a2e 0%, #0f0f1e 50%, #000 100%),
+                linear-gradient(45deg, #1a1a2e 25%, transparent 25%),
+                linear-gradient(-45deg, #1a1a2e 25%, transparent 25%);
+            background-size: 100% 100%, 60px 60px, 60px 60px;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            overflow-x: hidden;
         }
+        
+        /* 背景闪烁效果 */
         body::before {
             content: '';
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.4);
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255,215,0,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(255,107,107,0.1) 0%, transparent 50%);
+            animation: bgPulse 4s ease-in-out infinite;
             z-index: -1;
         }
+        
+        @keyframes bgPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        /* 主机器 - 金碧辉煌 */
         .machine {
-            background: linear-gradient(145deg, rgba(139,0,0,0.95) 0%, rgba(220,20,60,0.95) 50%, rgba(139,0,0,0.95) 100%);
-            border-radius: 30px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 100px rgba(255,215,0,0.3);
-            max-width: 500px;
+            background: linear-gradient(145deg, 
+                #1a0a00 0%, 
+                #3d1f00 15%,
+                #5c2e00 30%,
+                #8B4513 50%,
+                #5c2e00 70%,
+                #3d1f00 85%,
+                #1a0a00 100%);
+            border-radius: 40px;
+            padding: 50px 40px;
+            box-shadow: 
+                0 0 60px rgba(255,215,0,0.3),
+                0 0 120px rgba(255,215,0,0.1),
+                inset 0 0 60px rgba(0,0,0,0.5),
+                inset 0 0 20px rgba(255,215,0,0.2);
+            max-width: 550px;
             width: 100%;
             text-align: center;
+            border: 8px solid transparent;
+            border-image: linear-gradient(145deg, 
+                #FFD700 0%, 
+                #FFA500 25%, 
+                #FFD700 50%, 
+                #FFA500 75%, 
+                #FFD700 100%) 1;
+            position: relative;
+        }
+        
+        /* 顶部装饰灯 */
+        .machine::before {
+            content: '💎 🎰 💎 🎰 💎';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(145deg, #1a0a00, #3d1f00);
+            padding: 5px 30px;
+            border-radius: 20px;
             border: 3px solid #FFD700;
+            font-size: 1.2em;
+            letter-spacing: 10px;
+            box-shadow: 0 0 20px rgba(255,215,0,0.5);
+            animation: lightBlink 1s ease-in-out infinite alternate;
         }
+        
+        @keyframes lightBlink {
+            from { text-shadow: 0 0 10px #FFD700; }
+            to { text-shadow: 0 0 30px #FFD700, 0 0 60px #FFA500; }
+        }
+        
+        /* 标题 - 金色霓虹 */
         .title {
+            font-family: 'Cinzel', serif;
             color: #FFD700;
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-            animation: glow 2s ease-in-out infinite;
+            font-size: 2.8em;
+            margin: 20px 0 30px;
+            text-shadow: 
+                0 0 10px #FFD700,
+                0 0 20px #FFD700,
+                0 0 40px #FFA500,
+                0 0 80px rgba(255,165,0,0.5);
+            animation: neonGlow 1.5s ease-in-out infinite alternate;
+            letter-spacing: 5px;
         }
-        @keyframes glow {
-            0%, 100% { text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700; }
-            50% { text-shadow: 0 0 20px #FFD700, 0 0 40px #FFD700; }
+        
+        @keyframes neonGlow {
+            from { 
+                text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 40px #FFA500;
+            }
+            to { 
+                text-shadow: 0 0 20px #FFD700, 0 0 40px #FFD700, 0 0 60px #FFA500, 0 0 100px rgba(255,165,0,0.8);
+            }
         }
+        
+        /* 显示屏区域 */
         .display {
-            background: linear-gradient(145deg, #1a1a1a 0%, #0d0d0d 100%);
-            border-radius: 15px;
-            padding: 20px;
+            background: linear-gradient(145deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            border-radius: 20px;
+            padding: 30px 25px;
             margin-bottom: 30px;
-            border: 4px solid #FFD700;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
+            border: 5px solid #FFD700;
+            box-shadow: 
+                inset 0 0 30px rgba(0,0,0,0.8),
+                0 0 30px rgba(255,215,0,0.3),
+                inset 0 0 10px rgba(255,215,0,0.1);
+            position: relative;
         }
+        
+        .display::before {
+            content: 'WINNER';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #FFD700;
+            color: #000;
+            padding: 3px 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            border-radius: 10px;
+            letter-spacing: 3px;
+        }
+        
+        /* 滚轮容器 - 金属质感 */
         .reels-container {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-            background: linear-gradient(145deg, #333 0%, #222 100%);
-            padding: 15px;
-            border-radius: 10px;
-            border: 3px solid #444;
+            gap: 15px;
+            margin-bottom: 25px;
+            background: linear-gradient(145deg, 
+                #2a2a2a 0%, 
+                #1a1a1a 50%, 
+                #0a0a0a 100%);
+            padding: 20px;
+            border-radius: 15px;
+            border: 4px solid #444;
+            box-shadow: 
+                inset 0 0 20px rgba(0,0,0,0.8),
+                0 5px 15px rgba(0,0,0,0.5);
         }
+        
+        /* 单个滚轮窗口 - 金属边框 */
         .reel-window {
-            width: 100px;
-            height: 100px;
-            background: #fff;
-            border-radius: 10px;
-            border: 3px solid #FFD700;
+            width: 110px;
+            height: 110px;
+            background: linear-gradient(145deg, #fff 0%, #e8e8e8 100%);
+            border-radius: 15px;
+            border: 5px solid #FFD700;
             overflow: hidden;
             position: relative;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 
+                0 0 20px rgba(255,215,0,0.3),
+                inset 0 0 10px rgba(0,0,0,0.1);
         }
+        
+        .reel-window::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(
+                180deg,
+                rgba(0,0,0,0.3) 0%,
+                transparent 20%,
+                transparent 80%,
+                rgba(0,0,0,0.3) 100%
+            );
+            pointer-events: none;
+            z-index: 10;
+        }
+        
         .reel-strip {
             position: absolute;
             width: 100%;
             top: 0;
             will-change: transform;
         }
+        
         .symbol {
-            width: 100px;
-            height: 100px;
+            width: 110px;
+            height: 110px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3em;
-            background: linear-gradient(145deg, #fff 0%, #f0f0f0 100%);
-            border-bottom: 1px solid #ddd;
+            font-size: 3.5em;
+            background: linear-gradient(145deg, #fff 0%, #f5f5f5 50%, #e8e8e8 100%);
+            border-bottom: 2px solid #ddd;
         }
+        
         .symbol-blur {
-            filter: blur(2px);
+            filter: blur(3px);
         }
+        
+        /* 信息栏 - 金色数字 */
         .info {
             display: flex;
             justify-content: space-between;
             color: #FFD700;
-            font-size: 1.2em;
+            font-size: 1.3em;
             font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            text-shadow: 0 0 10px rgba(255,215,0,0.5);
+            padding: 0 10px;
         }
-        .controls {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+        
+        .info span {
+            background: rgba(0,0,0,0.5);
+            padding: 8px 15px;
+            border-radius: 10px;
+            border: 2px solid #FFD700;
         }
+        
+        /* 下注按钮 - 宝石风格 */
         .bet-controls {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             flex-wrap: wrap;
+            margin-bottom: 20px;
         }
-        .btn {
-            padding: 12px 25px;
-            font-size: 1.1em;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
+        
         .btn-bet {
-            background: linear-gradient(145deg, #4CAF50, #45a049);
-            color: white;
+            width: 70px;
+            height: 50px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background: linear-gradient(145deg, 
+                #4a4a4a 0%, 
+                #2a2a2a 50%, 
+                #1a1a1a 100%);
+            color: #aaa;
+            border: 3px solid #666;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.2s;
         }
+        
         .btn-bet:hover {
-            transform: scale(1.05) translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            border-color: #888;
         }
+        
         .btn-bet.active {
-            background: linear-gradient(145deg, #FFD700, #FFA500);
+            background: linear-gradient(145deg, 
+                #FFD700 0%, 
+                #FFA500 50%, 
+                #FF8C00 100%);
             color: #000;
+            border-color: #FFD700;
+            box-shadow: 
+                0 0 20px rgba(255,215,0,0.5),
+                0 0 40px rgba(255,165,0,0.3);
+            text-shadow: none;
         }
+        
+        /* 旋转按钮 - 大红宝石 */
         .btn-spin {
-            background: linear-gradient(145deg, #FF6B6B, #EE5A6F);
-            color: white;
-            font-size: 1.5em;
-            padding: 20px 40px;
-            border: 2px solid #FFD700;
+            width: 100%;
+            padding: 25px;
+            font-size: 1.8em;
+            font-weight: bold;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            background: linear-gradient(145deg, 
+                #ff4d4d 0%, 
+                #cc0000 50%, 
+                #990000 100%);
+            color: #FFD700;
+            border: 4px solid #FFD700;
+            box-shadow: 
+                0 0 30px rgba(255,0,0,0.5),
+                0 10px 30px rgba(0,0,0,0.4),
+                inset 0 0 20px rgba(255,255,255,0.2);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            transition: all 0.2s;
+            letter-spacing: 3px;
         }
+        
         .btn-spin:hover {
-            transform: scale(1.05) translateY(-3px);
+            transform: scale(1.02) translateY(-2px);
+            box-shadow: 
+                0 0 50px rgba(255,0,0,0.6),
+                0 15px 40px rgba(0,0,0,0.5),
+                inset 0 0 30px rgba(255,255,255,0.3);
         }
+        
         .btn-spin:disabled {
-            background: #666;
+            background: #444;
+            color: #666;
+            border-color: #666;
+            box-shadow: none;
             cursor: not-allowed;
             transform: none;
         }
+        
+        /* 消息显示 */
         .message {
             text-align: center;
             color: #FFD700;
-            font-size: 1.4em;
-            min-height: 30px;
-            margin-top: 15px;
-            font-weight: bold;
-        }
-        .message.win { color: #00FF00; }
-        .message.lose { color: #FF6B6B; }
-        .paytable {
+            font-size: 1.5em;
+            min-height: 40px;
             margin-top: 20px;
-            padding: 15px;
-            background: rgba(0,0,0,0.6);
-            border-radius: 10px;
-            color: #FFD700;
-            border: 2px solid #FFD700;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255,215,0,0.5);
         }
-        .paytable h3 { text-align: center; margin-bottom: 10px; }
+        
+        .message.win { 
+            color: #00FF00; 
+            text-shadow: 0 0 20px rgba(0,255,0,0.8);
+            animation: winnerPulse 0.5s ease-in-out 3;
+        }
+        
+        .message.lose { 
+            color: #FF6B6B;
+            text-shadow: 0 0 10px rgba(255,107,107,0.5);
+        }
+        
+        @keyframes winnerPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        /* 赔率表 */
+        .paytable {
+            margin-top: 25px;
+            padding: 20px;
+            background: linear-gradient(145deg, 
+                rgba(0,0,0,0.7) 0%, 
+                rgba(20,20,20,0.8) 100%);
+            border-radius: 15px;
+            border: 3px solid #FFD700;
+            box-shadow: 0 0 20px rgba(255,215,0,0.2);
+        }
+        
+        .paytable h3 {
+            color: #FFD700;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            text-shadow: 0 0 10px rgba(255,215,0,0.5);
+        }
+        
         .paytable-item {
             display: flex;
             justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255,215,0,0.3);
+            padding: 10px 15px;
+            border-bottom: 1px solid rgba(255,215,0,0.2);
+            color: #FFD700;
+            font-size: 1.1em;
         }
+        
+        .paytable-item:last-child {
+            border-bottom: none;
+        }
+        
+        .paytable-item span:last-child {
+            color: #FF6B6B;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(255,107,107,0.5);
+        }
+        
         @media (max-width: 600px) {
-            .reel-window, .symbol { width: 80px; height: 80px; }
-            .symbol { font-size: 2.5em; }
+            .machine { padding: 40px 20px; }
             .title { font-size: 2em; }
+            .reel-window, .symbol { width: 85px; height: 85px; }
+            .symbol { font-size: 2.8em; }
+            .btn-bet { width: 55px; height: 45px; font-size: 0.9em; }
+            .btn-spin { font-size: 1.4em; padding: 20px; }
         }
     </style>
 </head>
 <body>
     <div class="machine">
-        <h1 class="title">🎰 王老师老虎机</h1>
+        <h1 class="title">王老师老虎机</h1>
+        
         <div class="display">
             <div class="reels-container">
                 <div class="reel-window">
@@ -196,29 +413,33 @@
                 </div>
             </div>
             <div class="info">
-                <span>💰 余额: $<span id="balance">1000</span></span>
-                <span>🎯 下注: $<span id="currentBet">10</span></span>
+                <span>💰 $<span id="balance">1000</span></span>
+                <span>🎯 $<span id="currentBet">10</span></span>
             </div>
         </div>
+        
         <div class="controls">
             <div class="bet-controls">
-                <button class="btn btn-bet" onclick="setBet(5)">$5</button>
-                <button class="btn btn-bet active" onclick="setBet(10)">$10</button>
-                <button class="btn btn-bet" onclick="setBet(25)">$25</button>
-                <button class="btn btn-bet" onclick="setBet(50)">$50</button>
-                <button class="btn btn-bet" onclick="setBet(100)">$100</button>
+                <button class="btn-bet" onclick="setBet(5)">$5</button>
+                <button class="btn-bet active" onclick="setBet(10)">$10</button>
+                <button class="btn-bet" onclick="setBet(25)">$25</button>
+                <button class="btn-bet" onclick="setBet(50)">$50</button>
+                <button class="btn-bet" onclick="setBet(100)">$100</button>
             </div>
-            <button class="btn btn-spin" id="spinBtn" onclick="spin()">🎲 开始旋转</button>
+            
+            <button class="btn-spin" id="spinBtn" onclick="spin()">🎰 SPIN 🎰</button>
+            
             <div class="message" id="message">选择下注金额，点击旋转！</div>
         </div>
+        
         <div class="paytable">
             <h3>📋 赔率表</h3>
-            <div class="paytable-item"><span>🎰🎰🎰 777</span><span>50倍</span></div>
-            <div class="paytable-item"><span>💎💎💎 钻石</span><span>20倍</span></div>
-            <div class="paytable-item"><span>7️⃣7️⃣7️⃣ 数字7</span><span>10倍</span></div>
-            <div class="paytable-item"><span>🍒🍒🍒 樱桃</span><span>5倍</span></div>
-            <div class="paytable-item"><span>🍋🍋🍋 柠檬</span><span>3倍</span></div>
-            <div class="paytable-item"><span>🍊🍊🍊 橙子</span><span>2倍</span></div>
+            <div class="paytable-item"><span>🎰🎰🎰 777</span><span>50x</span></div>
+            <div class="paytable-item"><span>💎💎💎 钻石</span><span>20x</span></div>
+            <div class="paytable-item"><span>7️⃣7️⃣7️⃣ 数字7</span><span>10x</span></div>
+            <div class="paytable-item"><span>🍒🍒🍒 樱桃</span><span>5x</span></div>
+            <div class="paytable-item"><span>🍋🍋🍋 柠檬</span><span>3x</span></div>
+            <div class="paytable-item"><span>🍊🍊🍊 橙子</span><span>2x</span></div>
         </div>
     </div>
 
@@ -246,7 +467,6 @@
             return symbols[0];
         }
         
-        // 创建滚轮条带 - 15个随机符号 + 1个结果符号
         function createStrip(finalSymbol) {
             let html = '';
             for (let i = 0; i < 15; i++) {
@@ -256,22 +476,16 @@
             return html;
         }
         
-        // 滚动单个滚轮
         function spinReel(reel, duration, finalSymbol) {
             return new Promise(resolve => {
-                // 创建条带
                 reel.innerHTML = createStrip(finalSymbol);
-                const symbolHeight = 100;
-                const totalSymbols = 16; // 15个随机 + 1个结果
-                const endPosition = (totalSymbols - 1) * symbolHeight; // 停在最后一个（结果）
-                
+                const symbolHeight = 110;
+                const endPosition = 15 * symbolHeight;
                 const startTime = Date.now();
                 
                 function animate() {
                     const elapsed = Date.now() - startTime;
                     const progress = Math.min(elapsed / duration, 1);
-                    
-                    // 缓动：ease-out-cubic (开始快，结束慢)
                     const easeOut = 1 - Math.pow(1 - progress, 3);
                     const position = endPosition * easeOut;
                     
@@ -280,13 +494,11 @@
                     if (progress < 1) {
                         requestAnimationFrame(animate);
                     } else {
-                        // 动画完成，只显示最终结果
                         reel.innerHTML = `<div class="symbol">${finalSymbol}</div>`;
                         reel.style.transform = 'translateY(0)';
                         resolve();
                     }
                 }
-                
                 animate();
             });
         }
@@ -304,31 +516,24 @@
             
             const btn = document.getElementById('spinBtn');
             btn.disabled = true;
-            btn.textContent = '🎲 旋转中...';
+            btn.textContent = '旋转中...';
             showMessage('祝你好运！🍀');
             
-            // 生成最终结果（预先决定）
             const result1 = getRandomSymbol();
             const result2 = getRandomSymbol();
             const result3 = getRandomSymbol();
             
-            // 滚动时间（错开停止）
-            const duration1 = 1800;
-            const duration2 = 2400;
-            const duration3 = 3000;
-            
-            // 同时开始滚动，按顺序停止
             await Promise.all([
-                spinReel(document.getElementById('reel1'), duration1, result1),
-                new Promise(r => setTimeout(() => spinReel(document.getElementById('reel2'), duration2, result2).then(r), 300)),
-                new Promise(r => setTimeout(() => spinReel(document.getElementById('reel3'), duration3, result3).then(r), 600))
+                spinReel(document.getElementById('reel1'), 1800, result1),
+                new Promise(r => setTimeout(() => spinReel(document.getElementById('reel2'), 2400, result2).then(r), 300)),
+                new Promise(r => setTimeout(() => spinReel(document.getElementById('reel3'), 3000, result3).then(r), 600))
             ]);
             
             checkWin([result1, result2, result3]);
             
             spinning = false;
             btn.disabled = false;
-            btn.textContent = '🎲 开始旋转';
+            btn.textContent = '🎰 SPIN 🎰';
             
             if (balance <= 0) {
                 setTimeout(() => {
