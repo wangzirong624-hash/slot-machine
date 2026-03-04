@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 FIFA世界杯赛程 - 桌面工具</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #e74c3c;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2em;
+        }
+        
+        .info-bar {
+            display: flex;
+            justify-content: space-around;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .info-item {
+            text-align: center;
+        }
+        
+        .info-item .label {
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+        
+        .info-item .value {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            background: linear-gradient(90deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title::before {
+            content: "⚽";
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        
+        .match-list {
+            display: grid;
+            gap: 10px;
+        }
+        
+        .match-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+            transition: transform 0.2s;
+        }
+        
+        .match-item:hover {
+            transform: translateX(5px);
+            background: #e8f4f8;
+        }
+        
+        .match-item.edmonton {
+            border-left-color: #e74c3c;
+            background: #fff5f5;
+        }
+        
+        .match-date {
+            min-width: 120px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .match-time {
+            min-width: 80px;
+            color: #7f8c8d;
+        }
+        
+        .match-teams {
+            flex: 1;
+            font-size: 1.1em;
+        }
+        
+        .match-venue {
+            min-width: 150px;
+            text-align: right;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        
+        .edmonton-badge {
+            background: #e74c3c;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7em;
+            margin-left: 10px;
+        }
+        
+        .knockout-round {
+            background: linear-gradient(90deg, #9b59b6, #8e44ad);
+        }
+        
+        .final-round {
+            background: linear-gradient(90deg, #f39c12, #e67e22);
+        }
+        
+        .print-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+        }
+        
+        .print-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+            .print-btn {
+                display: none;
+            }
+        }
+        
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+        
+        .note strong {
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏆 2026 FIFA 世界杯</h1>
+            <div class="subtitle">加拿大·美国·墨西哥联合举办</div>
+        </div>
+        
+        <div class="info-bar">
+            <div class="info-item">
+                <div class="label">开始日期</div>
+                <div class="value">2026.06.11</div>
+            </div>
+            <div class="info-item">
+                <div class="label">决赛日期</div>
+                <div class="value">2026.07.19</div>
+            </div>
+            <div class="info-item">
+                <div class="label">参赛球队</div>
+                <div class="value">48支</div>
+            </div>
+            <div class="info-item">
+                <div class="label">总场次</div>
+                <div class="value">104场</div>
+            </div>
+            <div class="info-item">
+                <div class="label">举办城市</div>
+                <div class="value">16个</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">小组赛阶段（6月11日-6月26日）</div>
+            <div class="match-list">
+                <div class="match-item edmonton">
+                    <div class="match-date">6月11日</div>
+                    <div class="match-time">待定</div>
+                    <div class="match-teams">开幕式 + 首场小组赛</div>
+                    <div class="match-venue">墨西哥城<span class="edmonton-badge">开幕</span></div>
+                </div>
+                <div class="match-item edmonton">
+                    <div class="match-date">6月12日</div>
+                    <div class="match-time">待定</div>
+                    <div class="match-teams">小组赛</div>
+                    <div class="match-venue">Edmonton<span class="edmonton-badge">主场</span></div>
+                </div>
+                <div class="match-item">
+                    <div class="match-date">6月13-25日</div>
+                    <div class="match-time">多场</div>
+                    <div class="match-teams">小组赛各轮次</div>
+                    <div class="match-venue">16个城市</div>
+                </div>
+                <div class="match-item edmonton">
+                    <div class="match-date">6月20日</div>
+                    <div class="match-time">待定</div>
+                    <div class="match-teams">小组赛</div>
+                    <div class="match-venue">Edmonton<span class="edmonton-badge">主场</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title knockout-round">淘汰赛阶段（6月27日-7月19日）</div>
+            <div class="match-list">
+                <div class="match-item">
+                    <div class="match-date">6月27-30日</div>
+                    <div class="match-time">待定</div>
+                    <div class="match-teams">1/32决赛（48强→32强）</div>
+                    <div class="match-venue">8个城市</div>
+                </div>
+                <div class="match-item">
+                    <div class="match-date">7月1-4日</div>
+                    <div class="match-time">待定</div>
+                    <div class="match-teams">1/16决赛（32强→16强）</div>
+                    <div class="match-venue">8个城市</div>
+                </div>
+                <div class="match-item">
+                    <div class="match-date">7月5-6日</div>
+                    <div class="match-time">待定</div>
+                    <div class="match-teams">1/8决赛（16强→8强）</div>
+                    <div class="match-venue">4个城市</div>
+                </div>
+                <div class="match-item">
+                    <div class="match-date">7月9-10日</div>
+                    <div class="match-time">待定</div>
+                    <div class="match-teams">1/4决赛（8强→4强）</div>
+                    <div class="match-venue">2个城市</div>
+                </div>
+                <div class="match-item">
+                    <div class="match-date">7月13-14日</div>
+                    <div class="match-time">待定</div>
+                    <div class="match-teams">半决赛</div>
+                    <div class="match-venue">待定</div>
+                </div>
+                <div class="match-item">
+                    <div class="match-date">7月17日</div>
+                    <div class="match-time">待定</div>
+                    <div class="match-teams">三四名决赛</div>
+                    <div class="match-venue">待定</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title final-round">🏆 决赛（7月19日）</div>
+            <div class="match-list">
+                <div class="match-item" style="background: linear-gradient(90deg, #ffd700, #ffed4a); border-left-color: #f39c12;">
+                    <div class="match-date">7月19日</div>
+                    <div class="match-time">待定</div>
+                    <div class="match-teams" style="font-weight: bold; font-size: 1.2em;">世界杯决赛</div>
+                    <div class="match-venue" style="font-weight: bold;">新泽西/纽约</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🇨🇦 加拿大举办城市</div>
+            <div class="match-list">
+                <div class="match-item edmonton">
+                    <div class="match-date">Edmonton</div>
+                    <div class="match-time">阿尔伯塔省</div>
+                    <div class="match-teams">Commonwealth Stadium</div>
+                    <div class="match-venue">小组赛+淘汰赛<span class="edmonton-badge">你的城市</span></div>
+                </div>
+                <div class="match-item">
+                    <div class="match-date">Toronto</div>
+                    <div class="match-time">安大略省</div>
+                    <div class="match-teams">BMO Field</div>
+                    <div class="match-venue">小组赛+淘汰赛</div>
+                </div>
+                <div class="match-item">
+                    <div class="match-date">Vancouver</div>
+                    <div class="match-time">BC省</div>
+                    <div class="match-teams">BC Place</div>
+                    <div class="match-venue">小组赛+淘汰赛</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="note">
+            <strong>📌 重要提醒：</strong><br>
+            • 详细对阵表需等待2025年底小组赛抽签后确定<br>
+            • Edmonton 将举办多场小组赛和至少一场淘汰赛<br>
+            • 具体开球时间（MT山地时间）将在赛前公布<br>
+            • 建议提前关注票务信息（预计2025年中开始发售）
+        </div>
+    </div>
+
+    <button class="print-btn" onclick="window.print()">🖨️ 打印/保存PDF</button>
+
+    <script>
+        // 添加当前日期高亮
+        const today = new Date();
+        const matchItems = document.querySelectorAll('.match-item');
+        
+        // 可以在这里添加更多交互功能
+        console.log('2026世界杯赛程桌面工具已加载');
+        console.log('打印或保存为PDF请使用右下角按钮');
+    </script>
+</body>
+</html>
